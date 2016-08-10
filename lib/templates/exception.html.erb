@@ -1,0 +1,9 @@
+<h1><%= @e.class %></h1>
+<h2><%= @e %></h2>
+
+<h2>Stack:</h2>
+<ol>
+	<% @e.backtrace.each do |step| %>
+	<li><%= step %></li>
+	<% end %>
+</ol>
