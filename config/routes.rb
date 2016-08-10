@@ -1,4 +1,4 @@
 Rail.router.draw do
-	get "/", 'Cats#show'
-	get "/cats/:cat_id/toy/:id", "Cats#showCats"
+	get "/cats", "Cats#index"
+	get "/cats/:id", "Cats#show"
 end

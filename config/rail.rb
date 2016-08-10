@@ -1,0 +1,1 @@
+ROOT_DIR = File.join(File.dirname(__FILE__), '..')

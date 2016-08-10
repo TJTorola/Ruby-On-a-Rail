@@ -24,7 +24,7 @@ class Route
 
 		params = {}
 		match_data.names.each do |wildcard|
-			params[wildcard.to_sym] = match_data[wildcard]
+			params[wildcard.to_sym] = match_data[wildcard].to_i
 		end
 		params
 	end

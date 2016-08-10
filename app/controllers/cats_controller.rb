@@ -1,9 +1,10 @@
 class CatsController < ApplicationController
-	def show
-		render_content("RAIL!", "text/html")
+	def index
+		render_content(Cat.all.to_json, "text/json")
 	end
 
-	def show_cats
-		render_content(@params[:cat_id], "text")
+	def show
+		@cat = Cat.find(params[:id])
+		render_content(@cat.to_json, "text/json")
 	end
 end

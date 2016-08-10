@@ -1,5 +1,6 @@
 require 'active_support/inflector'
 
+require_relative './db_connection'
 require_relative './searchable'
 require_relative './associatable'
 
@@ -58,6 +59,7 @@ class SQLObject
 	private
 
 	def self.columns
+		return [] if table_name == 'classes'
 		@columns ||= DBConnection.execute2(<<-SQL)
 			SELECT *
 			FROM #{table_name}
