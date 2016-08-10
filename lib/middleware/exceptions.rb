@@ -1,6 +1,6 @@
 require 'erb'
 
-class ShowExceptions
+class Exceptions
 	attr_reader :app
 	def initialize(app)
 		@app = app

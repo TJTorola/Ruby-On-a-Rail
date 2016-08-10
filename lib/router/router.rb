@@ -27,17 +27,28 @@ class Router
 	end
 
 	METHODS.each do |method|
-		define_method(method) do |pattern, controller_action|
-			controller_action = controller_action.split('#')
-			controller = controller_action.first.constantize
-			action = controller_action.last.underscore.to_sym
+		define_method(method) do |pattern, controller_method|
 			pattern = build_pattern(pattern)
+			action = build_action(controller_method)
 
-			add_route(pattern, method, controller, action)
+			add_route(pattern, method, action[:controller], action[:method])
 		end
 	end
 
 	private
+
+	def build_action(controller_method)
+		result = {}
+		controller_method = controller_method.split('#')
+
+		result[:controller] = controller_method.first
+		result[:controller] += "Controller"
+		result[:controller] = result[:controller].constantize
+
+		result[:method] = controller_method.last.underscore.to_sym
+
+		result
+	end
 
 	def build_pattern(pattern)
 		wildcards = pattern.scan(/:[a-z_]+/)

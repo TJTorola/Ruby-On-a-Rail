@@ -1,16 +1,10 @@
 require 'rack'
 require_relative '../lib/head'
 
-app = Rail.new
-
 app = Rack::Builder.new do
+	use Exceptions
 	use Static
-	run app
-end.to_app
-
-app = Rack::Builder.new do
-	use ShowExceptions
-	run app
+	run Rail.new
 end.to_app
 
 Rack::Server.start(
