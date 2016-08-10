@@ -21,6 +21,11 @@ class Route
 
 	def match_params(req)
 		match_data = @pattern.match(req.path)
-		Hash[ match_data.names.zip( match_data.captures ) ]
+
+		params = {}
+		match_data.names.each do |wildcard|
+			params[wildcard.to_sym] = match_data[wildcard]
+		end
+		params
 	end
 end

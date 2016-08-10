@@ -27,12 +27,28 @@ class Router
 	end
 
 	METHODS.each do |method|
-		define_method(method) do |pattern, controller, action|
+		define_method(method) do |pattern, controller_action|
+			controller_action = controller_action.split('#')
+			controller = controller_action.first.constantize
+			action = controller_action.last.underscore.to_sym
+			pattern = build_pattern(pattern)
+
 			add_route(pattern, method, controller, action)
 		end
 	end
 
 	private
+
+	def build_pattern(pattern)
+		wildcards = pattern.scan(/:[a-z_]+/)
+		wildcards.each do |wildcard|
+			key = wildcard[1..-1]
+			pattern.sub!(wildcard, "(?<#{key}>\\\\d+)")
+		end
+
+		pattern = "^#{pattern}$"
+		Regexp.new(pattern)
+	end
 
 	def template_dir
 		"#{dir}/../templates/"

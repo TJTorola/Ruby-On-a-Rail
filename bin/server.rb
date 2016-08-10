@@ -7,11 +7,16 @@ class ApplicationController < ControllerBase
   def show
     render_content("RAIL!", "text/html")
   end
+
+  def show_cats
+    render_content(@params[:cat_id], "text")
+  end
 end
 
 router = Router.new
 router.draw do
-  get Regexp.new("^/$"), ApplicationController, :show
+  get "/", 'ApplicationController#show'
+  get "/cats/:cat_id/toy/:id", "ApplicationController#showCats"
 end
 
 app = Proc.new do |env|
