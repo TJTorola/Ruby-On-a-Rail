@@ -15,7 +15,7 @@ class Route
 	end
 
 	def run(req, res)
-		instance = @controller.constantize.new(req, res, match_params(req))
+		instance = @controller.new(req, res, match_params(req))
 		instance.invoke_action(action)
 	end
 

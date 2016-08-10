@@ -7,4 +7,11 @@ require_relative './sql_object/sql_object'
 require_relative './middleware/show_exceptions.rb'
 require_relative './middleware/static.rb'
 
+app_dir = File.dirname(__FILE__)
+app_dir += "/../app/"
+
+Dir["#{app_dir}*/*.rb"].each do |file|
+	require file
+end
+
 require_relative '../config/routes'
