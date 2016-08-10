@@ -29,7 +29,7 @@ class Router
 	METHODS.each do |method|
 		define_method(method) do |pattern, controller_action|
 			controller_action = controller_action.split('#')
-			controller = controller_action.first.constantize
+			controller = controller_action.first
 			action = controller_action.last.underscore.to_sym
 			pattern = build_pattern(pattern)
 

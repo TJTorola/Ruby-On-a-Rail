@@ -1,6 +1,14 @@
-require_relative './controller_base/controller_base'
-require_relative './router/router'
-require_relative './sql_object/sql_object'
+class Rail
+	attr_accessor :router
 
-require_relative './middleware/show_exceptions.rb'
-require_relative './middleware/static.rb'
+	def call(env)
+		req = Rack::Request.new(env)
+		res = Rack::Response.new
+		@@router.run(req, res)
+		res.finish
+	end
+
+	def self.router
+		@@router ||= Router.new
+	end
+end

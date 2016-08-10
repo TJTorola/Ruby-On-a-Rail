@@ -1,5 +1,5 @@
 require 'rack'
-require_relative '../lib/rail'
+require_relative '../lib/head'
 
 class ApplicationController < ControllerBase
   protect_from_forgery
@@ -13,18 +13,7 @@ class ApplicationController < ControllerBase
   end
 end
 
-router = Router.new
-router.draw do
-  get "/", 'ApplicationController#show'
-  get "/cats/:cat_id/toy/:id", "ApplicationController#showCats"
-end
-
-app = Proc.new do |env|
-  req = Rack::Request.new(env)
-  res = Rack::Response.new
-  router.run(req, res)
-  res.finish
-end
+app = Rail.new
 
 app = Rack::Builder.new do
   use Static
